@@ -29,6 +29,7 @@ This version was developed to include comprehensive improvements in power manage
 ---
 
 ### ⚠️ Important Notes
-* **Testing Status:** This design (V2) is still experimental and has not been practically tested yet (Untested).
-* **Code Update:** Due to the change in the Pinout for this version (specifically avoiding GPIO 2), the Pin Definitions in the software code must be updated to match the new connections before operation.
+* This design (V2) is still experimental and has not been practically tested yet (Untested).
+
+* Due to the change in the Pinout for this version (specifically avoiding GPIO 2), the Pin Definitions in the software code must be updated to match the new connections before operation.
 
