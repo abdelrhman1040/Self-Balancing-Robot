@@ -99,3 +99,7 @@ The Web Dashboard interacts with the ESP32 through HTTP GET requests.
 | **`GET /set?k=[KEY]&v=[VALUE]`** | Updates PID constants instantly.<br>**Keys:** `bp` (Balance P), `bi` (Balance I), `bd` (Balance D), `sp` (Setpoint). |
 | **`GET /save?p=[SLOT]`** | Saves current tuning to Slot 1, 2, or 3 in Flash memory. |
 | **`GET /move?d=[DIRECTION]`** | Sends movement commands.<br>**Values:** `F` (Forward), `B` (Backward), `L` (Left), `R` (Right). |
+
+![WhatsApp Image 2026-01-27 at 12 56 12 PM](https://github.com/user-attachments/assets/9df04f01-c417-4ea0-9942-936587061eae)
+
+
