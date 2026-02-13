@@ -94,8 +94,6 @@ To configure and upload the firmware:
 
 The robot is modeled as an inverted pendulum mounted on a wheeled cart.
 
-### 1. Cart Translation
-
 $$
 (M + m)\ddot{x} + mL \cos\theta \ddot{\theta}
 - mL\dot{\theta}^2 \sin\theta = F(x)
