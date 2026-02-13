@@ -30,6 +30,7 @@ This repository is organized into the following directories:
 * **[`/PCB`](./PCB)**: EasyEDA Gerber files, schematics, and BOM.
 * **[`/Mechanical`](./Mechanical)**: STL files for 3D printing and CAD models.
 * **[`/Simulation`](./Simulation)**: MATLAB/Simulink scripts for system validation.
+
 ---
 
 ## Hardware Assembly
@@ -151,7 +152,7 @@ The firmware utilizes a **Cascaded Control Architecture**:
     ```cpp
     float term_sP = speedOutput * Kp_s;
     float term_sI = sumSpeedError * Ki_s;
-    targetAngle = term_sP + term_sI;
+    float driftCorrection = term_sP + term_sI;
     ```
 
 ---
