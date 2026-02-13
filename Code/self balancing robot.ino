@@ -9,8 +9,8 @@
 #include "soc/rtc_cntl_reg.h"
 
 // --- Network Settings ---
-const char* ssid = "aaaa";
-const char* password = "22334455";
+const char* ssid = "your_wifi_name";
+const char* password = "your_wifi_password";
 
 // --- System Objects ---
 Preferences preferences;
