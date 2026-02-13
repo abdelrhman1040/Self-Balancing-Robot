@@ -1,300 +1,137 @@
-# Self-Balancing Robot
+# ESP32 Self-Balancing Robot 🤖
+### A Web-Controlled, Real-Time Tunable Inverted Pendulum Platform
 
-Inverted Pendulum Modeling, Embedded Control, and Real-Time PID Tuning Platform
+![Project Banner](https://via.placeholder.com/800x400?text=Place+Your+Robot+Image+Here)
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Platform](https://img.shields.io/badge/Platform-ESP32-blue)](https://espressif.com)
+[![Framework](https://img.shields.io/badge/Framework-Arduino%2FPlatformIO-green)](https://platformio.org)
 
 ---
 
-## Project Overview
+## 📖 Project Overview
 
 This project implements a self-balancing robot based on the classical inverted pendulum problem. The system is inherently unstable and requires continuous feedback control to maintain its upright position.
 
-The goal of the project is not only to stabilize the robot, but to develop a complete engineering pipeline including:
+Unlike standard implementations, this robot features a **Web-based Dashboard** hosted on the ESP32, allowing for **real-time PID tuning** and telemetry visualization over Wi-Fi without needing to re-upload code.
 
-* Mathematical modeling of the system
-* Linearization and transfer function derivation
-* Control system design
-* Embedded firmware implementation on ESP32
-* Real-time PID tuning through a web-based interface
-* Mechanical design (3D CAD)
-* Custom PCB design
+### Key Objectives
+* **Mathematical Modeling:** Linearization and transfer function derivation.
+* **Control System Design:** Implementation of cascaded PID loops.
+* **Embedded Firmware:** High-frequency control loop on ESP32 (Dual Core).
+* **Web Interface:** Real-time tuning and plotting using WebSockets/AJAX.
+* **Hardware:** Custom PCB design and 3D printed mechanical chassis.
 
-Applications of this type of system include:
-
-* Autonomous robotics platforms
-* Mobile balancing transport systems
-* Educational control systems laboratories
-* Real-time embedded control experimentation
-
-This repository contains the complete documentation, firmware, 3D models, and PCB design required to reproduce the system.
+### Applications
+* Autonomous robotics platforms.
+* Mobile balancing transport systems.
+* Educational control systems laboratories.
 
 ---
 
-# Building the Robot from Scratch
+## 📂 Repository Structure
 
-This section describes how to physically reproduce the robot and bring it to life.
+While this README provides the complete documentation, detailed assets are organized as follows:
 
----
-
-## 1. Mechanical Assembly
-
-1. 3D print the chassis using the provided CAD files.
-2. Mount the stepper motors in their designated positions.
-3. Attach the wheels securely to the motor shafts.
-4. Fix the PCB in its mounting slots.
-5. Install the battery holder.
-6. Place the IMU sensor (BNO055) at the correct central location to minimize vibration effects.
-7. Ensure the center of mass is aligned vertically above the wheel axis.
-
-Correct mechanical alignment is critical. Poor mass distribution directly affects controller performance.
+* **[`/Firmware`](./Firmware)**: Source code (PlatformIO/Arduino) and libraries.
+* **[`/PCB`](./PCB)**: EasyEDA Gerber files, schematics, and BOM.
+* **[`/Mechanical`](./Mechanical)**: STL files for 3D printing and CAD models.
+* **[`/Simulation`](./Simulation)**: MATLAB/Simulink scripts for system validation.
 
 ---
 
-## 2. Electrical Assembly
+## 🛠️ Building the Robot (Hardware)
 
-Connect the following components:
+This section describes how to physically reproduce the robot.
 
-* ESP32 microcontroller
-* Two stepper motors via A4988 drivers
-* BNO055 IMU via I2C
-* Buck converter for voltage regulation
-* Battery pack
+### 1. Mechanical Assembly
+1.  **Chassis:** 3D print the chassis using the STL files in the `/Mechanical` folder.
+2.  **Motors:** Mount the NEMA17 stepper motors in their designated slots.
+3.  **Drive Train:** Attach the wheels securely to the motor shafts.
+4.  **Electronics Mount:** Fix the PCB in its mounting slots using M3 screws.
+5.  **IMU Placement:** Place the **BNO055 IMU** at the exact physical center of the robot to minimize centrifugal acceleration errors.
+6.  **Battery:** Install the battery holder (ensure it is secure).
 
-Check:
+> **⚠️ Critical Note:** Ensure the **Center of Mass (CoM)** is aligned vertically above the wheel axis. Poor mass distribution acts as a constant disturbance and degrades controller performance.
 
-* Motor driver current limiting
-* Proper grounding
-* Secure I2C wiring
+### 2. Electrical Assembly
+Connect the components according to the schematic in `/PCB`:
 
----
+* **MCU:** ESP32 Development Board.
+* **Actuators:** 2x Stepper Motors via A4988/DRV8825 drivers.
+* **Sensor:** BNO055 IMU via I2C (SDA, SCL).
+* **Power:** Buck converter (12V $\to$ 5V) for logic; direct battery power for motors.
 
-## 3. Firmware Upload and Wi-Fi Setup
-
-Before uploading the code:
-
-1. Open the firmware file.
-2. Modify the following lines with your Wi-Fi credentials:
-
-```cpp
-const char* ssid = "your_wifi_name";
-const char* password = "your_wifi_password";
-```
-
-3. Upload the code to the ESP32 using Arduino IDE or PlatformIO.
-4. Open the Serial Monitor.
-5. Wait for Wi-Fi connection confirmation.
-6. The ESP32 will display its assigned IP address.
-7. Enter that IP address into a browser.
-
-This loads the robot’s control dashboard.
+**Pre-Flight Checks:**
+* [ ] Check Motor Driver current limiting (Vref adjustment).
+* [ ] Verify common ground between logic and power circuits.
+* [ ] Secure I2C wiring (short wires are better to avoid noise).
 
 ---
 
-# Mathematical Modeling and System Theory
+## 🚀 Getting Started (Firmware & Wi-Fi)
 
-The robot behaves as an inverted pendulum mounted on a wheeled base.
+### Firmware Upload
+1.  Open the project in **PlatformIO** (Recommended) or Arduino IDE.
+2.  Navigate to `src/main.cpp` or `config.h` (depending on your structure).
+3.  **Update Wi-Fi Credentials:**
+    ```cpp
+    const char* ssid = "your_wifi_name";
+    const char* password = "your_wifi_password";
+    ```
+4.  Upload the code to the ESP32.
 
-The nonlinear equations of motion are:
+### System Launch
+1.  Open the **Serial Monitor** (Baud Rate: 115200).
+2.  Reset the ESP32.
+3.  Wait for the connection confirmation message:
+    ```text
+    Connected to Wi-Fi!
+    IP Address: 192.168.1.15
+    ```
+4.  Open your web browser (Phone or PC) and enter the **IP Address**.
+5.  The **Control Dashboard** will load, allowing you to start the robot and tune parameters.
 
-Cart translation:
+---
 
-[
-(M + m)\ddot{x} + mL \cos\theta , \ddot{\theta} - mL\dot{\theta}^2 \sin\theta = F(x)
-]
+## 🧮 Mathematical Modeling
 
-Pendulum rotation:
+The robot behaves as an inverted pendulum mounted on a wheeled base. The simplified linearized equation of motion around the upright equilibrium ($\theta \approx 0$) assuming negligible cart acceleration is:
 
-[
-mL \cos\theta , \ddot{x} + (I + mL^2)\ddot{\theta} - mgL\sin\theta = d(\theta)
-]
-
-These equations are nonlinear due to:
-
-* ( \sin\theta )
-* ( \cos\theta )
-* Coupling terms
-* Quadratic velocity components
-
-Direct control design from nonlinear equations is complex. Therefore, the system is linearized around the upright equilibrium:
-
-[
-\theta \approx 0
-]
-
-Using:
-
-[
-\sin\theta \approx \theta
-]
-[
-\cos\theta \approx 1
-]
-
-Assuming negligible cart acceleration, the equation reduces to:
-
-[
+$$
 (I + mL^2)\ddot{\theta} - mgL\theta = d(\theta)
-]
-
-Taking the Laplace transform:
-
-[
-\frac{\theta(s)}{D(s)} =
-\frac{1}{s^2 - a}
-]
+$$
 
 Where:
+* $I$: Moment of inertia.
+* $m$: Mass of the pendulum.
+* $L$: Distance to center of mass.
+* $g$: Gravitational acceleration.
 
-[
-a = \frac{mgL}{I + mL^2}
-]
+### Transfer Function
+Taking the Laplace transform, the open-loop transfer function is:
 
-This transfer function reveals a right-half-plane pole:
+$$
+\frac{\theta(s)}{D(s)} = \frac{1}{s^2 - a} \quad \text{where} \quad a = \frac{mgL}{I + mL^2}
+$$
 
-[
-s = \pm \sqrt{a}
-]
-
-The positive pole proves the system is unstable.
-
-This modeling is essential because:
-
-* It explains why the robot falls without control
-* It determines required damping
-* It guides controller structure
-* It validates control choices analytically
+This reveals a pole in the Right-Half Plane ($s = \pm \sqrt{a}$), mathematically proving the system is **unstable** and requires closed-loop control.
 
 ---
 
-# Control Strategy
+## 🕹️ Control Architecture
 
-To stabilize the system, a PID controller is implemented:
+The ESP32 firmware implements two **Cascaded PID Loops** to ensure stability and position control.
 
-[
-C(s) = K_p + K_d s + \frac{K_i}{s}
-]
+### 1. Balance PID (Inner Loop)
+This is the fast loop (running at ~200Hz+). It maintains the upright position.
 
-The PID controller is chosen because:
-
-* Proportional term controls responsiveness
-* Derivative term adds damping
-* Integral term eliminates steady-state tilt error
-
-The closed-loop characteristic equation becomes third-order, and stability is verified analytically using Routh-Hurwitz criteria.
-
----
-
-# Embedded Control Architecture
-
-The ESP32 firmware implements two cascaded control loops.
-
----
-
-## 1. Balance PID (Main Loop)
-
-From the code:
+$$
+u_{bal}(t) = K_p e(t) + K_i \int e(t) dt + K_d \frac{de(t)}{dt}
+$$
 
 ```cpp
+// Code Implementation
 float term_bP = Kp * balanceError;
 float term_bI = Ki * sumBalanceError;
 float term_bD = Kd * (balanceError - lastBalanceError);
-```
-
-This loop:
-
-* Stabilizes tilt angle
-* Generates motor speed command
-* Includes integral windup prevention
-* Includes deadband logic
-* Includes acceleration limiting
-
----
-
-## 2. Speed / Drift PID
-
-```cpp
-float term_sP = speedOutput * Kp_s;
-float term_sI = sumSpeedError * Ki_s;
-```
-
-This loop:
-
-* Corrects slow drift
-* Modifies desired tilt angle
-* Improves long-term stability
-
-The overall structure becomes:
-
-Speed PID → adjusts desired angle
-Balance PID → drives motors
-
-This cascaded architecture improves performance and robustness.
-
----
-
-# Real-Time Web Dashboard
-
-The ESP32 hosts a built-in web server.
-
-When accessing the robot’s IP address, a control interface appears that allows:
-
-* Real-time adjustment of Kp, Ki, Kd
-* Adjustment of Kp_s and Ki_s
-* Setpoint modification
-* Live telemetry display
-* Graph visualization
-* Motor command controls
-* Profile saving and loading
-
-The dashboard includes:
-
-* Live angle measurement
-* Live motor speed
-* PID term visualization (P, I, D components)
-* Historical plotting
-* Animated robot visualization
-
-All parameter changes are applied instantly without re-uploading firmware.
-
----
-
-# Real-Time Tuning
-
-Real-time tuning allows:
-
-* Immediate feedback on parameter changes
-* Faster controller optimization
-* Practical understanding of damping and overshoot
-* Safe experimentation
-
-Profiles can be saved and loaded directly from ESP32 non-volatile memory, enabling multiple tuning configurations.
-
----
-
-# Repository Contents
-
-This repository includes:
-
-* MATLAB validation scripts
-* ESP32 firmware
-* Embedded web dashboard
-* 3D CAD design files
-* PCB layout files
-
----
-
-# Conclusion
-
-This project demonstrates the complete process of transforming a theoretical unstable nonlinear system into a physically stabilized embedded control system.
-
-It integrates:
-
-* Control theory
-* Real-time embedded programming
-* Mechanical design
-* Electronics design
-* Web-based system interaction
-
-The result is a fully functional self-balancing robot with real-time tunable control parameters.
-
-* A version optimized for recruiters
-* Or help you format it exactly in GitHub Markdown with sections and spacing perfectly adjusted.
