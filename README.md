@@ -26,23 +26,10 @@ Distinct from standard implementations, this robot features a **Web-based Dashbo
 
 This repository is organized into the following directories:
 
-* **`/Firmware`**
-    * `src/`: Main C++ source code for the ESP32.
-    * `include/`: Header files for PID logic and Web Server configuration.
-    * `platformio.ini`: Configuration file for PlatformIO environment.
-* **`/PCB`**
-    * `Schematics/`: Circuit diagrams in PDF and EDA formats.
-    * `Gerber/`: Manufacturing files for the custom carrier board.
-    * `BOM.csv`: Bill of Materials listing all electronic components.
-* **`/Mechanical`**
-    * `STL/`: 3D printable files for the chassis, motor mounts, and wheels.
-    * `CAD/`: Source files (SolidWorks/Fusion360) for modification.
-* **`/Simulation`**
-    * `MATLAB/`: Scripts for system linearization and root locus analysis.
-    * `Simulink/`: Block diagrams simulating the closed-loop response.
-* **`/Docs`**
-    * Project report, datasheets, and reference papers.
-
+* **[`/Firmware`](./Firmware)**: Source code (PlatformIO/Arduino) and libraries.
+* **[`/PCB`](./PCB)**: EasyEDA Gerber files, schematics, and BOM.
+* **[`/Mechanical`](./Mechanical)**: STL files for 3D printing and CAD models.
+* **[`/Simulation`](./Simulation)**: MATLAB/Simulink scripts for system validation.
 ---
 
 ## Hardware Assembly
