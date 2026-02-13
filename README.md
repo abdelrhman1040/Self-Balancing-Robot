@@ -90,83 +90,62 @@ To configure and upload the firmware:
 
 ---
 
-\section{Mathematical Modeling}
+## Mathematical Modeling
 
 The robot is modeled as an inverted pendulum mounted on a wheeled cart.
-The nonlinear equations of motion are defined as follows:
 
-\subsection*{1. Cart Translation}
+### 1. Cart Translation
 
-\begin{equation}
-(M + m)\ddot{x} + mL \cos\theta \, \ddot{\theta}
+$$
+(M + m)\ddot{x} + mL \cos\theta \ddot{\theta}
 - mL\dot{\theta}^2 \sin\theta = F(x)
-\end{equation}
+$$
 
-\subsection*{2. Pendulum Rotation}
+### 2. Pendulum Rotation
 
-\begin{equation}
-mL \cos\theta \, \ddot{x}
+$$
+mL \cos\theta \ddot{x}
 + (I + mL^2)\ddot{\theta}
 - mgL\sin\theta = d(\theta)
-\end{equation}
+$$
 
-These equations contain nonlinear terms 
-($\sin\theta$, $\cos\theta$, $\dot{\theta}^2$).
-For control design, the system is linearized around the upright equilibrium point 
-($\theta \approx 0$), assuming small angles:
+These equations contain nonlinear terms:
+$\sin\theta$, $\cos\theta$, $\dot{\theta}^2$
 
-\[
-\sin\theta \approx \theta,
-\qquad
+For small angles:
+
+$$
+\sin\theta \approx \theta
+$$
+
+$$
 \cos\theta \approx 1
-\]
-
-and negligible cart acceleration.
+$$
 
 The simplified equation becomes:
 
-\begin{equation}
+$$
 (I + mL^2)\ddot{\theta} - mgL\theta = d(\theta)
-\end{equation}
+$$
 
-\subsection*{Transfer Function}
+### Transfer Function
 
-Applying the Laplace transform yields the open-loop transfer function:
-
-\begin{equation}
+$$
 \frac{\Theta(s)}{D(s)} = \frac{1}{s^2 - a}
-\end{equation}
+$$
 
-where
+Where
 
-\begin{equation}
+$$
 a = \frac{mgL}{I + mL^2}
-\end{equation}
+$$
 
-The poles of the system are located at:
+Poles:
 
-\[
+$$
 s = \pm \sqrt{a}
-\]
+$$
 
-The presence of a pole in the right-half plane 
-($+\sqrt{a}$) indicates that the open-loop system 
-is inherently unstable.
-
-\section{Control Strategy}
-
-To stabilize the system, a PID controller is implemented.
-The control law in the Laplace domain is:
-
-\begin{equation}
-C(s) = K_p + K_d s + \frac{K_i}{s}
-\end{equation}
-
-\begin{itemize}
-    \item \textbf{Proportional ($K_p$):} Provides immediate response to tilt error.
-    \item \textbf{Derivative ($K_d$):} Adds virtual damping to reduce overshoot and oscillation.
-    \item \textbf{Integral ($K_i$):} Eliminates steady-state error caused by mechanical asymmetries.
-\end{itemize}
 
 
 ### Embedded Control Architecture
