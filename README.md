@@ -90,54 +90,84 @@ To configure and upload the firmware:
 
 ---
 
-## Mathematical Modeling
+\section{Mathematical Modeling}
 
-The robot is modeled as an inverted pendulum mounted on a wheeled cart. The nonlinear equations of motion are defined as follows:
+The robot is modeled as an inverted pendulum mounted on a wheeled cart.
+The nonlinear equations of motion are defined as follows:
 
-**1. Cart Translation:**
-$$
-(M + m)\ddot{x} + mL \cos\theta \ddot{\theta} - mL\dot{\theta}^2 \sin\theta = F(x)
-$$
+\subsection*{1. Cart Translation}
 
-**2. Pendulum Rotation:**
-$$
-mL \cos\theta \ddot{x} + (I + mL^2)\ddot{\theta} - mgL\sin\theta = d(\theta)
-$$
+\begin{equation}
+(M + m)\ddot{x} + mL \cos\theta \, \ddot{\theta}
+- mL\dot{\theta}^2 \sin\theta = F(x)
+\end{equation}
 
-These equations contain nonlinear terms ($\sin\theta$, $\cos\theta$, $\dot{\theta}^2$). For control design, the system is linearized around the upright equilibrium point ($\theta \approx 0$), assuming small angles ($\sin\theta \approx \theta$, $\cos\theta \approx 1$) and negligible cart acceleration.
+\subsection*{2. Pendulum Rotation}
+
+\begin{equation}
+mL \cos\theta \, \ddot{x}
++ (I + mL^2)\ddot{\theta}
+- mgL\sin\theta = d(\theta)
+\end{equation}
+
+These equations contain nonlinear terms 
+($\sin\theta$, $\cos\theta$, $\dot{\theta}^2$).
+For control design, the system is linearized around the upright equilibrium point 
+($\theta \approx 0$), assuming small angles:
+
+\[
+\sin\theta \approx \theta,
+\qquad
+\cos\theta \approx 1
+\]
+
+and negligible cart acceleration.
 
 The simplified equation becomes:
-$$
-(I + mL^2)\ddot{\theta} - mgL\theta = d(\theta)
-$$
 
-**Transfer Function:**
+\begin{equation}
+(I + mL^2)\ddot{\theta} - mgL\theta = d(\theta)
+\end{equation}
+
+\subsection*{Transfer Function}
+
 Applying the Laplace transform yields the open-loop transfer function:
 
-$$
-\frac{\theta(s)}{D(s)} = \frac{1}{s^2 - a}
-$$
+\begin{equation}
+\frac{\Theta(s)}{D(s)} = \frac{1}{s^2 - a}
+\end{equation}
 
-Where:
-$$
+where
+
+\begin{equation}
 a = \frac{mgL}{I + mL^2}
-$$
+\end{equation}
 
-The poles of the system are located at $s = \pm \sqrt{a}$. The presence of a pole in the right-half plane ($+\sqrt{a}$) indicates that the open-loop system is inherently unstable.
+The poles of the system are located at:
 
----
+\[
+s = \pm \sqrt{a}
+\]
 
-## Control Strategy
+The presence of a pole in the right-half plane 
+($+\sqrt{a}$) indicates that the open-loop system 
+is inherently unstable.
 
-To stabilize the system, a PID controller is implemented. The control law in the Laplace domain is:
+\section{Control Strategy}
 
-$$
+To stabilize the system, a PID controller is implemented.
+The control law in the Laplace domain is:
+
+\begin{equation}
 C(s) = K_p + K_d s + \frac{K_i}{s}
-$$
+\end{equation}
 
-* **Proportional ($K_p$):** Provides immediate response to tilt error.
-* **Derivative ($K_d$):** Adds "virtual friction" (damping) to reduce overshoot and oscillation.
-* **Integral ($K_i$):** Eliminates steady-state error caused by mechanical asymmetries.
+\begin{itemize}
+    \item \textbf{Proportional ($K_p$):} Provides immediate response to tilt error.
+    \item \textbf{Derivative ($K_d$):} Adds virtual damping to reduce overshoot and oscillation.
+    \item \textbf{Integral ($K_i$):} Eliminates steady-state error caused by mechanical asymmetries.
+\end{itemize}
+
 
 ### Embedded Control Architecture
 
