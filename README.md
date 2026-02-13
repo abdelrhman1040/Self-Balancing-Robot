@@ -181,10 +181,4 @@ The ESP32 hosts an asynchronous web server providing a control interface with th
 * **Control:** Remote start/stop functionality.
 * **Data Persistence:** Capability to save and load tuning profiles from non-volatile memory (EEPROM).
 
----
-
-## Conclusion
-
-This project demonstrates the complete engineering lifecycle of a control system, from mathematical modeling and linearization to hardware implementation and real-time embedded control. It serves as a robust platform for testing control algorithms and studying unstable system dynamics.
-
 
