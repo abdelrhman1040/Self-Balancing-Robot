@@ -1,5 +1,7 @@
 # Self-Balancing Robot
 ### Inverted Pendulum Modeling, Embedded Control, and Real-Time PID Tuning Platform
+<img width="1600" height="1200" alt="image" src="https://github.com/user-attachments/assets/ad6d5c16-febd-40ab-be73-8ea747785c26" />
+https://github.com/user-attachments/assets/f0d6d562-3fb0-4166-bda1-51981caae902
 
 ## Project Overview
 
