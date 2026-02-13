@@ -172,8 +172,4 @@ The ESP32 hosts an asynchronous web server providing a control interface with th
 
 This project demonstrates the complete engineering lifecycle of a control system, from mathematical modeling and linearization to hardware implementation and real-time embedded control. It serves as a robust platform for testing control algorithms and studying unstable system dynamics.
 
----
 
-**Author:** [Your Name]
-**Department:** Electronics and Communication Engineering (ECE)
-**Institution:** Nile University
