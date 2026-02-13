@@ -38,7 +38,7 @@ This repository is organized into the following directories:
 * **[`/Firmware`](./Firmware)**: Source code (PlatformIO/Arduino) and libraries.
 * **[`/PCB`](./PCB)**: EasyEDA Gerber files, schematics, and BOM.
 * **[`/Mechanical`](./Mechanical)**: STL files for 3D printing and CAD models.
-* **[`/Simulation`](./Simulation)**: MATLAB/Simulink scripts for system validation.
+* **[`/Hardware`](./Hardware)**: Component datasheets, wiring diagrams, and hardware specifications.
 
 ---
 
