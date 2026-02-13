@@ -2,7 +2,13 @@
 ### Inverted Pendulum Modeling, Embedded Control, and Real-Time PID Tuning Platform
 <img width="1600" height="1200" alt="image" src="https://github.com/user-attachments/assets/ad6d5c16-febd-40ab-be73-8ea747785c26" />
 
-[![Watch the video](https://img.youtube.com/vi/-zBhrWm9mPE/0.jpg)](https://www.youtube.com/shorts/-zBhrWm9mPE)
+<div align="center">
+
+<a href="https://www.youtube.com/shorts/-zBhrWm9mPE">
+   <img src="https://img.youtube.com/vi/-zBhrWm9mPE/0.jpg" alt="Watch Video" width="300" />
+</a>
+
+</div>
 
 ## Project Overview
 
