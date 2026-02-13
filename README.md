@@ -94,18 +94,17 @@ To configure and upload the firmware:
 
 The robot is modeled as an inverted pendulum mounted on a wheeled cart.
 
-$$
+```math
 (M + m)\ddot{x} + mL \cos\theta \ddot{\theta}
 - mL\dot{\theta}^2 \sin\theta = F(x)
-$$
-
+```
 ### 2. Pendulum Rotation
 
-$$
+```math
 mL \cos\theta \ddot{x}
 + (I + mL^2)\ddot{\theta}
 - mgL\sin\theta = d(\theta)
-$$
+```
 
 These equations contain nonlinear terms:
 $\sin\theta$, $\cos\theta$, $\dot{\theta}^2$
