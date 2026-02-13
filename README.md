@@ -120,7 +120,7 @@ $$
 
 Where:
 $$
-a = \frac{mgL}{I + mL^2}
+\frac{\theta(s)}{D(s)} = \frac{1}{s^2 - a}
 $$
 
 The poles of the system are located at $s = \pm \sqrt{a}$. The presence of a pole in the right-half plane ($+\sqrt{a}$) indicates that the open-loop system is inherently unstable.
