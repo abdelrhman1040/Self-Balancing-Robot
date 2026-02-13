@@ -54,6 +54,9 @@ The firmware defaults to the configuration for PCB Version 1 (V1).
 #define DIR_PIN_2    27   // Right Motor Dir
 #define SDA_PIN      21   // BNO055 SDA
 #define SCL_PIN      22   // BNO055 SCL
+```
+
+---
 
 ## Important for PCB V2 Users
 The PCB Version 2 design avoids using GPIO 2 to prevent boot-strapping issues. If you are deploying this firmware on a V2 board, you must update the pin definitions in the source code to match the V2 schematic before uploading. Failure to do so may result in boot loops or unresponsive motors.
@@ -81,3 +84,18 @@ void setup() {
     
     // ... remaining setup logic
 }
+```
+
+> **Note:** While this software fix allows the robot to run, ensure your 3S LiPo battery is adequately charged to maintain voltage stability.
+
+---
+
+## API Endpoints (Web Interface)
+The Web Dashboard interacts with the ESP32 through HTTP GET requests.
+
+| Endpoint | Description |
+| :--- | :--- |
+| **`GET /data`** | Returns a JSON object with live telemetry (Angle, Speed, PID components). |
+| **`GET /set?k=[KEY]&v=[VALUE]`** | Updates PID constants instantly.<br>**Keys:** `bp` (Balance P), `bi` (Balance I), `bd` (Balance D), `sp` (Setpoint). |
+| **`GET /save?p=[SLOT]`** | Saves current tuning to Slot 1, 2, or 3 in Flash memory. |
+| **`GET /move?d=[DIRECTION]`** | Sends movement commands.<br>**Values:** `F` (Forward), `B` (Backward), `L` (Left), `R` (Right). |
