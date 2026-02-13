@@ -4,8 +4,8 @@
 
 <div align="center">
 
-<a href="https://www.youtube.com/shorts/-zBhrWm9mPE">
-   <img src="https://img.youtube.com/vi/-zBhrWm9mPE/0.jpg" alt="Watch Video" width="300" />
+<a href="https://www.youtube.com/shorts/-zBhrWm9mPE" target="_blank">
+   <img src="https://img.youtube.com/vi/-zBhrWm9mPE/maxresdefault.jpg" alt="Watch Video" width="700" style="border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
 </a>
 
 </div>
