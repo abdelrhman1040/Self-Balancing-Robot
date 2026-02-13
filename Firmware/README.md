@@ -54,3 +54,30 @@ The firmware defaults to the configuration for PCB Version 1 (V1).
 #define DIR_PIN_2    27   // Right Motor Dir
 #define SDA_PIN      21   // BNO055 SDA
 #define SCL_PIN      22   // BNO055 SCL
+
+## Important for PCB V2 Users
+The PCB Version 2 design avoids using GPIO 2 to prevent boot-strapping issues. If you are deploying this firmware on a V2 board, you must update the pin definitions in the source code to match the V2 schematic before uploading. Failure to do so may result in boot loops or unresponsive motors.
+
+---
+
+## Troubleshooting and System Stability
+
+### Brownout Detector Issue (PCB V1)
+In the initial PCB design (V1), the power path is shared between high-current stepper drivers and the ESP32 logic without complete electrical isolation.
+
+**The Problem:**
+Rapid motor acceleration causes significant current spikes, leading to a momentary voltage drop on the 3.3V rail. The ESP32's internal Brownout Detector interprets this as a power failure and resets the chip, causing a continuous boot loop during operation.
+
+**The Software Solution:**
+If your robot resets whenever it tries to balance or move (especially on PCB V1), the code includes a fix to disable the Brownout Detector at the start of the setup function:
+
+```cpp
+#include "soc/soc.h"
+#include "soc/rtc_cntl_reg.h"
+
+void setup() {
+    // Disabling Brownout Detector to allow operation during current spikes
+    WRITE_PERI_REG(RTC_CNTL_BROWN_OUT_REG, 0);
+    
+    // ... remaining setup logic
+}
