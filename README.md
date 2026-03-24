@@ -1,12 +1,5 @@
 # Self-Balancing Robot
 ### Inverted Pendulum Modeling, Embedded Control, and Real-Time PID Tuning Platform
-<img width="1600" height="1200" alt="image" src="https://github.com/user-attachments/assets/ad6d5c16-febd-40ab-be73-8ea747785c26" />
-
-<div align="center">
-
-<a href="https://www.youtube.com/shorts/-zBhrWm9mPE" target="_blank">
-   <img src="https://img.youtube.com/vi/-zBhrWm9mPE/maxresdefault.jpg" alt="Watch Video" width="700" style="border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
-</a>
 
 </div>
 
@@ -181,4 +174,11 @@ The ESP32 hosts an asynchronous web server providing a control interface with th
 * **Control:** Remote start/stop functionality.
 * **Data Persistence:** Capability to save and load tuning profiles from non-volatile memory (EEPROM).
 
+<img width="1600" height="1200" alt="image" src="https://github.com/user-attachments/assets/ad6d5c16-febd-40ab-be73-8ea747785c26" />
+
+<div align="center">
+
+<a href="https://www.youtube.com/shorts/-zBhrWm9mPE" target="_blank">
+   <img src="https://img.youtube.com/vi/-zBhrWm9mPE/maxresdefault.jpg" alt="Watch Video" width="700" style="border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
+</a>
 
